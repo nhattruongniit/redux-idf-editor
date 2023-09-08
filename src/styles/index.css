@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-size: 14px;
+}
+
+.classChildren_checkbox:checked ~ .class_item {
+  display: block;
+}
+
+.classChildren_checkbox:checked ~ .class_header .icon_arrow {
+  transform: rotate(180deg) !important;
+}
+
+.idfObject_header {
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+  height: 48px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+}
+
+.idfObject_row {
+  border-top-width: 1px;
+  align-items: center;
+  display: flex;
+  height: 48px;
+}
+
+.modal_blur {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.3;
+}

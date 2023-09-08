@@ -1,0 +1,14 @@
+{
+  "name": "IDF Editor",
+  "description": "Manage IDF Editor and rules",
+  "version": "0.1.0",
+  "license": "Usonia Labs",
+  "homepage": "https://fv343.csb.app/templates",
+  "repository": "git@gitlab.usonia.io:Usonia/addons/idf-editor.git",
+  "icon": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+  "tags": ["editor"],
+  "categories": ["editor"],
+  "whatsnew": ["editor"],
+  "contexts": ["idf_api", "pusher", "project", "idf_document"],
+  "size": { "width": 800, "height": 550 }
+}
