@@ -13,33 +13,36 @@ import { getClassListByGroup } from "../../helpers/getClassListByGroup";
 
 // actions
 import { setActiveClasses } from "../../redux/idfClasses.action";
+import { dispatchLogEvent } from "../../libs/FirebaseEvent";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     classesItem: state.idfClasses.classesItem,
     project: state.project.project,
-  }
-}
+  };
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    setActiveClasses: (classItem) => dispatch(setActiveClasses(classItem))
-  }
-}
+    setActiveClasses: (classItem) => dispatch(setActiveClasses(classItem)),
+  };
+};
 
 function ClassMenu({ project, classesItem, setActiveClasses }) {
   const [idfClasses, setIdfClasses] = React.useState([]);
 
   // fetch idfClasses
   React.useEffect(() => {
-    if(!project) return;
+    if (!project) return;
 
     const results = getClassListByGroup(mockIdfClasses.data);
     setIdfClasses(results);
   }, [project]);
 
   function _handleClick(item) {
-    setActiveClasses(item)
+    console.log("test dispatch event firebase select_class: ", item.class_name);
+    dispatchLogEvent("select_class", { name: item.class_name });
+    setActiveClasses(item);
   }
 
   if (idfClasses.length === 0) return <>No Class List</>;
@@ -83,7 +86,8 @@ function ClassMenu({ project, classesItem, setActiveClasses }) {
                   <div
                     className={clsx(
                       "class_header flex p-2 cursor-pointer text-gray-900 rounded-lg dark:text-white px-2 items-center hover:bg-gray-200 dark:hover:bg-gray-700",
-                      item.class_name === classesItem?.class_name && 'bg-gray-200'
+                      item.class_name === classesItem?.class_name &&
+                        "bg-gray-200"
                     )}
                     onClick={() => _handleClick(item)}
                   >
