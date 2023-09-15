@@ -3,7 +3,8 @@
 - react
 - redux, thunk
 - tailwindcss
-
+- firebase
+- GA
 
 ### Iconify
 

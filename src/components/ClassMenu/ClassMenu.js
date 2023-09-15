@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import clsx from "clsx";
+import ReactGA from "react-ga4";
 
 // comppnents
 import IconSimple from "../IconSimple";
@@ -42,6 +43,14 @@ function ClassMenu({ project, classesItem, setActiveClasses }) {
   function _handleClick(item) {
     console.log("test dispatch event firebase select_class: ", item.class_name);
     dispatchLogEvent("select_class", { name: item.class_name });
+
+    // REACT GA
+    ReactGA.event({
+      category: "event REACT GA",
+      action: "selected",
+      label: "button", // optional
+      value: item.class_name, // optional, must be a number
+    });
     setActiveClasses(item);
   }
 
