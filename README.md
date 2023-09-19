@@ -5,8 +5,8 @@
 - tailwindcss
 - CRA
 - dockerfile
-
-
+- firebase
+- GA
 
 ### Iconify
 
