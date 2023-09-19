@@ -11,7 +11,8 @@ import { store } from './store';
 
 
 // styles
-import './styles/index.css';
+import './styles/global.css';
+import './styles/custom.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

@@ -48,9 +48,9 @@ function ConfirmModal({
                 
                 {/* buttton bottom */}
                 {!hideButtonCancel && (
-                  <ButtonSimple
+                   <ButtonSimple
                     text={cancelText}
-                    classNames="text-black bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 mr-2"
+                    type="ghost"
                     onClick={onClose}
                   />
                 )}
@@ -58,12 +58,7 @@ function ConfirmModal({
                 {onOk && (
                   <ButtonSimple
                     text={okText}
-                    classNames={clsx(
-                      "bg-red-600 hover:bg-red-800 focus:ring-red-300 dark:focus:ring-red-800",
-                      type === 'warning' && 'bg-yellow-600 hover:bg-yellow-800 focus:ring-yellow-300 dark:focus:ring-yellow-800',
-                      type === 'info' && 'bg-blue-600 hover:bg-blue-800 focus:ring-blue-300 dark:focus:ring-blue-800',
-                      type === 'success' && 'bg-green-600 hover:bg-green-800 focus:ring-green-300 dark:focus:ring-green-800',
-                    )}
+                    type={type}
                     onClick={onOk}
                   />
                 )}
