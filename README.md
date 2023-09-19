@@ -27,4 +27,10 @@ $ npm run start
 # copy tailwind css
 $ npm run build:style
 - Copy tailwind.css into custom.css
+
+# build dockerfile
+$ docker build -t {name image} .  
+
+# run docker file
+$ docker run -it -p 3000:80 {name image}
 ```
