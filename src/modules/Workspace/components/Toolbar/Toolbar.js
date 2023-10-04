@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import Editor from '@monaco-editor/react';
 // components
 import IconSimple from '../../../../components/IconSimple';
 import ButtonSimple from '../../../../components/ButtonSimple';
@@ -8,6 +8,7 @@ import SimpleModal from '../../../../components/Modal/SimpleModal';
 
 // redux
 import { resetSelectedObjects } from '../../../../redux/idfClasses.action';
+
 
 const mapStateToProps = state => {
   return {
@@ -23,6 +24,8 @@ const mapDispatchToProps = dispatch => ({
 
 const Toolbar = ({ documentId, classesItem, selectedObjects, resetSelectedOjects }) => {
   const [isOpenModal, setIsOpenModal] = React.useState(false);
+  const [idfFileContent, setIdfFileContent] = React.useState('');
+  const fileInputRef = React.useRef();
 
   function handleDelete() {
     setIsOpenModal(true);
@@ -41,6 +44,17 @@ const Toolbar = ({ documentId, classesItem, selectedObjects, resetSelectedOjects
       documentId,
       classesItem,
     })
+  }
+
+  function onUploadFile(e) {
+    const selectedFile = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      setIdfFileContent(event.target.result);
+    };
+
+    reader.readAsText(selectedFile);
   }
 
   return (
@@ -95,9 +109,19 @@ const Toolbar = ({ documentId, classesItem, selectedObjects, resetSelectedOjects
               classNames="ml-2" 
               onClick={handleAddNewObject}
             />
+            <ButtonSimple 
+              text="Show IDF file" 
+              classNames="ml-2" 
+              onClick={() => fileInputRef.current.click()}
+            />
+            <input type='file' ref={fileInputRef} style={{display: 'none'}} accept='.idf' onChange={onUploadFile} />
           </div>
         </div>
       )}
+
+      <div>
+        <Editor height="400px" defaultLanguage="javascript" value={idfFileContent} />
+      </div>
       
       {/* open modal */}
       <SimpleModal 

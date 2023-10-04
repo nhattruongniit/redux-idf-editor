@@ -11,6 +11,7 @@ import App from "./App";
 import { store } from "./store";
 
 // styles
+import './styles/tailwind.css';
 import './styles/global.css';
 import './styles/custom.css';
 
