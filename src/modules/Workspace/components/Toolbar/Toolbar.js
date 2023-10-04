@@ -9,6 +9,8 @@ import SimpleModal from '../../../../components/Modal/SimpleModal';
 // redux
 import { resetSelectedObjects } from '../../../../redux/idfClasses.action';
 
+// import idfFile from '../../../../assets/idf/.idf'
+
 
 const mapStateToProps = state => {
   return {
@@ -47,6 +49,13 @@ const Toolbar = ({ documentId, classesItem, selectedObjects, resetSelectedOjects
   }
 
   function onUploadFile(e) {
+    // fetch(idfFile)
+    //   .then((r) => r.text())
+    //   .then(text  => {
+    //     setIdfFileContent(text);
+    //   });
+
+
     const selectedFile = e.target.files[0];
     const reader = new FileReader();
 
