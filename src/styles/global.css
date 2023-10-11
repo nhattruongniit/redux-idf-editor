@@ -35,3 +35,50 @@ body {
   background: #000;
   opacity: 0.3;
 }
+
+
+.halfScreenModal-root {
+  position: fixed;
+  z-index: 1300;
+  inset: 0px;
+  top: 0;
+  right: 0;
+  width: 100%;
+  display: none;
+}
+
+.halfScreenModal-root--open {
+  display: block;
+}
+
+.halfScreenModal-overlay {
+  position: fixed;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  inset: 0px;
+  background-color: rgba(0, 0, 0, 0.3);
+  -webkit-tap-highlight-color: transparent;
+  z-index: -1;
+  cursor: pointer;
+}
+
+.halfScreenModal-content {
+  height: 100%;
+  background-color: #fff;
+  width: 100%;
+  position: relative;
+  left: 0%;
+  padding: 10px;
+  /* transform: translateX(100%); */
+}
+
+.titleSimulator {
+  margin: 10px 0;
+}
+
+.original {
+  opacity: 0.6;
+}

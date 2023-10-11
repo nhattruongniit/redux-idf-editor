@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Editor from '@monaco-editor/react';
+
 // components
 import IconSimple from '../../../../components/IconSimple';
 import ButtonSimple from '../../../../components/ButtonSimple';
 import SimpleModal from '../../../../components/Modal/SimpleModal';
+import { MonacoEditorCode } from './MonacoEditorCode';
+import HalfScreenModal from '../../../../components/Modal/HalfScreenModal';
 
 // redux
 import { resetSelectedObjects } from '../../../../redux/idfClasses.action';
-
-// import idfFile from '../../../../assets/idf/.idf'
 
 
 const mapStateToProps = state => {
@@ -27,7 +27,10 @@ const mapDispatchToProps = dispatch => ({
 const Toolbar = ({ documentId, classesItem, selectedObjects, resetSelectedOjects }) => {
   const [isOpenModal, setIsOpenModal] = React.useState(false);
   const [idfFileContent, setIdfFileContent] = React.useState('');
+  const [isOpenHalfScreenModal, setIsOpenHalfScreenModal] = React.useState(false);
+  const [objectRawText, setObjectRawText] = React.useState(''); 
   const fileInputRef = React.useRef();
+  const monacoEditorRef = React.useRef();
 
   function handleDelete() {
     setIsOpenModal(true);
@@ -48,26 +51,27 @@ const Toolbar = ({ documentId, classesItem, selectedObjects, resetSelectedOjects
     })
   }
 
-  function onUploadFile(e) {
-    // fetch(idfFile)
-    //   .then((r) => r.text())
-    //   .then(text  => {
-    //     setIdfFileContent(text);
-    //   });
+  function showResponseJSON() {
+    const stringifyJSON = JSON.stringify(selectedObjects, null, 2);
+    setObjectRawText(stringifyJSON)
+  }
 
 
-    const selectedFile = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-      setIdfFileContent(event.target.result);
-    };
-
-    reader.readAsText(selectedFile);
+  function onUpdateObject() {
+    const rawObjerct = monacoEditorRef.current.onUpdatebOject();
+    alert(rawObjerct)
   }
 
   return (
     <>
+      <div className='titleSimulator flex items-center justify-between'>
+        <div className='text-lg font-medium dark:text-[#fff]'>Simulator</div>
+        <ButtonSimple 
+          text="Show IDF file" 
+          classNames="ml-2" 
+          onClick={() => setIsOpenHalfScreenModal(true)}
+        />
+      </div>
       {/* show action  */}
       {selectedObjects.length > 0 ? (
         <div className='w-full flex items-center justify-between bg-blue-700 py-4 px-6'>
@@ -118,20 +122,17 @@ const Toolbar = ({ documentId, classesItem, selectedObjects, resetSelectedOjects
               classNames="ml-2" 
               onClick={handleAddNewObject}
             />
-            <ButtonSimple 
+            {/* <ButtonSimple 
               text="Show IDF file" 
               classNames="ml-2" 
               onClick={() => fileInputRef.current.click()}
             />
-            <input type='file' ref={fileInputRef} style={{display: 'none'}} accept='.idf' onChange={onUploadFile} />
+            <input type='file' ref={fileInputRef} style={{display: 'none'}} accept='.idf' onChange={onUploadFile} /> */}
           </div>
         </div>
       )}
 
-      <div>
-        <Editor height="400px" defaultLanguage="javascript" value={idfFileContent} />
-      </div>
-      
+    
       {/* open modal */}
       <SimpleModal 
         type="danger"
@@ -145,6 +146,34 @@ const Toolbar = ({ documentId, classesItem, selectedObjects, resetSelectedOjects
           <br />
         </div>
       </SimpleModal>
+
+      <HalfScreenModal 
+        isOpen={isOpenHalfScreenModal} 
+        onClose={() => {
+          setIsOpenHalfScreenModal(false)
+          setObjectRawText('');
+          // setIdfFileContent('')
+        }}
+      >
+        <div className='flex justify-end mb-2'>
+          <ButtonSimple 
+            text="API (response JSON)" 
+            classNames="ml-2" 
+            onClick={showResponseJSON}
+          />
+          <ButtonSimple 
+            text="Update" 
+            classNames="ml-2" 
+            onClick={onUpdateObject}
+          />
+        </div>
+       
+        <MonacoEditorCode 
+          ref={monacoEditorRef}
+          objectRawText={objectRawText} 
+          isOpenHalfScreenModal={isOpenHalfScreenModal}
+        />
+      </HalfScreenModal>
       
     </>
   )
