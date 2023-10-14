@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import IconSimple from '../../../../components/IconSimple';
 import ButtonSimple from '../../../../components/ButtonSimple';
 import SimpleModal from '../../../../components/Modal/SimpleModal';
-import { MonacoEditorCode } from './MonacoEditorNotImperativeHandle.js';
+import { MonacoEditorCode } from './MonacoEditorCode';
 import HalfScreenModal from '../../../../components/Modal/HalfScreenModal';
 
 // redux
@@ -31,6 +31,7 @@ const Toolbar = ({ documentId, classesItem, selectedObjects, resetSelectedOjects
   const [objectRawText, setObjectRawText] = React.useState(''); 
   const fileInputRef = React.useRef();
   const monacoEditorRef = React.useRef();
+  const [code, setCode] = React.useState('');
 
   function handleDelete() {
     setIsOpenModal(true);
@@ -58,8 +59,13 @@ const Toolbar = ({ documentId, classesItem, selectedObjects, resetSelectedOjects
 
 
   function onUpdateObject() {
-    console.log('onUpdateObject: ', onUpdateObject)
+    const code =  monacoEditorRef.current.getCode();
+    console.log('onUpdateObject: ', code)
   }
+
+  console.log('Toolbar render')
+
+
 
   return (
     <>
@@ -168,9 +174,10 @@ const Toolbar = ({ documentId, classesItem, selectedObjects, resetSelectedOjects
         </div>
        
         <MonacoEditorCode 
-          // ref={monacoEditorRef}
+          ref={monacoEditorRef}
           objectRawText={objectRawText} 
           isOpenHalfScreenModal={isOpenHalfScreenModal}
+          // setCode={setCode}
         />
       </HalfScreenModal>
       

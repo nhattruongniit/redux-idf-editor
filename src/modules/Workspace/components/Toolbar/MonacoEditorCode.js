@@ -24,39 +24,41 @@ const options = {
 }; 
 
 export const MonacoEditorCode = React.forwardRef(({ isOpenHalfScreenModal, objectRawText }, ref) => {
-  const [code, setCode] = React.useState(null)
-  function handleEditorChange(value, event) {
-    setCode(value)
-  }
+  const [code, setCode] = React.useState('')
+
+  React.useImperativeHandle(ref, () => {
+    return {
+      getCode: () => {
+        return code;
+      }
+    }
+  }, [code])
+
 
   React.useEffect(() => {
     if(isOpenHalfScreenModal) return
-    setCode('')
   }, [isOpenHalfScreenModal])
 
   React.useEffect(() => {
     if(!objectRawText) return
-    setCode(objectRawText)
   }, [objectRawText])
+  
+  function handleEditorChange(value, event) {
+    setCode(value)
+  }
 
-  React.useImperativeHandle(ref, () => {
-    return {
-      onUpdatebOject() {
-        return code
-      }
-    }
-  }, [code])
+  console.log('MonacoEditorCode')
 
   return (
     <>
       
       <MonacoEditor 
-       height="calc(100vh - 85px)" 
-       defaultLanguage="javascript" 
-       value={objectRawText}
-       onChange={handleEditorChange}
-       options={options}
-      />
+        height="calc(100vh - 85px)" 
+        defaultLanguage="javascript" 
+        value={objectRawText}
+        onChange={handleEditorChange}
+        options={options}
+        />
     </> 
     
   )
