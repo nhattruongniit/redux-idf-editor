@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import IconSimple from '../../../../components/IconSimple';
 import ButtonSimple from '../../../../components/ButtonSimple';
 import SimpleModal from '../../../../components/Modal/SimpleModal';
-import { MonacoEditorCode } from './MonacoEditorCode';
+import { MonacoEditorCode } from './MonacoEditorNotImperativeHandle.js';
 import HalfScreenModal from '../../../../components/Modal/HalfScreenModal';
 
 // redux
@@ -58,8 +58,7 @@ const Toolbar = ({ documentId, classesItem, selectedObjects, resetSelectedOjects
 
 
   function onUpdateObject() {
-    const rawObjerct = monacoEditorRef.current.onUpdatebOject();
-    alert(rawObjerct)
+    console.log('onUpdateObject: ', onUpdateObject)
   }
 
   return (
@@ -169,7 +168,7 @@ const Toolbar = ({ documentId, classesItem, selectedObjects, resetSelectedOjects
         </div>
        
         <MonacoEditorCode 
-          ref={monacoEditorRef}
+          // ref={monacoEditorRef}
           objectRawText={objectRawText} 
           isOpenHalfScreenModal={isOpenHalfScreenModal}
         />
